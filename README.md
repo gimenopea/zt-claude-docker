@@ -15,6 +15,15 @@ A portable Claude Code environment in Docker for Windows. Authenticate once on y
 ## Prerequisites
 
 - [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) installed and running
+  
+  > **Note:** During Docker Desktop installation, we recommend using **WSL 2 instead of Hyper-V** for better performance:
+  > 
+  > ![Docker Desktop Configuration](image.png)
+  > 
+  > - ✓ Use WSL 2 instead of Hyper-V (recommended)
+  > - ✗ Allow Windows Containers (not needed for this project)
+  > - ✓ Add shortcut to desktop
+
 - [Node.js](https://nodejs.org/) installed (for initial auth only -- `auth.bat` can install it for you)
 - An Anthropic subscription (Pro, Max, Teams, or Enterprise)
 
@@ -117,6 +126,21 @@ This spins up a container named `claude-<folder>` (or reuses an existing one) an
 ```
 claude
 ```
+
+### Exit the container
+
+When you're done working and want to return to your Windows host terminal:
+
+```
+exit
+```
+
+Or use the keyboard shortcut:
+
+- **Ctrl + D** — sends EOF signal, exits the bash shell
+- **Ctrl + P, Q** — detaches from container without stopping it (container keeps running in background)
+
+> **Tip:** After exiting, the container may still be running in the background. Use `ccstop` to fully stop and remove it, or just run `cc` again to re-enter the same container.
 
 ### Stop a session
 
