@@ -20,9 +20,7 @@ A portable Claude Code environment in Docker for Windows. Authenticate once on y
   > 
   > ![Docker Desktop Configuration](image.png)
   > 
-  > - ✓ Use WSL 2 instead of Hyper-V (recommended)
-  > - ✗ Allow Windows Containers (not needed for this project)
-  > - ✓ Add shortcut to desktop
+ 
 
 - [Node.js](https://nodejs.org/) installed (for initial auth only -- `auth.bat` can install it for you)
 - An Anthropic subscription (Pro, Max, Teams, or Enterprise)
