@@ -50,7 +50,19 @@ npx @anthropic-ai/claude-code
 
 Complete the OAuth login in your browser. Credentials are saved to `%USERPROFILE%\.claude\`.
 
-### 3. Build the image
+### 3. Map the regression output drive
+
+```
+net use R: \\regr3\home\pg\regression-output /persistent:yes
+```
+
+> **⚠️🔴 CHANGE `pg` TO YOUR OWN INITIALS! 🔴⚠️**
+>
+> The path `\\regr3\home\pg\regression-output` uses **pg** as an example. Replace it with your initials (e.g. `\\regr3\home\jd\regression-output` for John Doe).
+
+The `/persistent:yes` flag makes the mapping survive reboots.
+
+### 4. Build the image
 
 > **Important:** Run this from inside the repo folder (where the `Dockerfile` is). The `.` at the end tells Docker to use the current directory as the build context.
 
@@ -59,7 +71,7 @@ cd C:\claude-tools\zt-claude-docker
 docker build -t claude-code .
 ```
 
-### 4. Add to PATH (optional but recommended)
+### 5. Add to PATH (optional but recommended)
 
 Adding the repo folder to your system PATH lets you run `cc` and `ccstop` from any directory without typing the full path.
 

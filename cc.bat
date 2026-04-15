@@ -12,6 +12,8 @@ if "%RUNNING%"=="" (
       -v "%CD%:/workspace" ^
       -v "%USERPROFILE%\.claude:/home/node/.claude" ^
       -v "%USERPROFILE%\.claude.json:/home/node/.claude.json" ^
+      -v "E:\zetl:/data/zetl" ^
+      -v "R:\:/data/regression-output" ^
       -e PS1="\w \$ " ^
       -w /workspace ^
       claude-code
