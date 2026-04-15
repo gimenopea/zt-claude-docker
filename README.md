@@ -52,7 +52,10 @@ Complete the OAuth login in your browser. Credentials are saved to `%USERPROFILE
 
 ### 3. Build the image
 
+> **Important:** Run this from inside the repo folder (where the `Dockerfile` is). The `.` at the end tells Docker to use the current directory as the build context.
+
 ```
+cd C:\claude-tools\zt-claude-docker
 docker build -t claude-code .
 ```
 
