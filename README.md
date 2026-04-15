@@ -347,16 +347,17 @@ if "%RUNNING%"=="" (
       -v "%CD%:/workspace" ^
       -v "%USERPROFILE%\.claude:/home/node/.claude" ^
       -v "%USERPROFILE%\.claude.json:/home/node/.claude.json" ^
+      -v "E:\zetl:/data/zetl" ^
+      -v "R:\:/data/regression-output" ^
       -e PS1="\w \$ " ^
       -w /workspace ^
       claude-code
 )
-REM Only creates a new container if one isn't already running.
-REM Mounts: your project, credentials directory, and global config.
 
 docker exec -it %CONTAINER_NAME% /bin/bash
-REM Opens an interactive bash shell in the container.
 ```
+
+Only creates a new container if one isn't already running. Mounts: project, credentials, config, ZETL logs (`E:\zetl`), regression output (`R:\`). The `docker exec` opens an interactive bash shell.
 
 #### ccstop.bat
 
@@ -364,8 +365,7 @@ REM Opens an interactive bash shell in the container.
 @echo off
 for %%I in ("%CD%") do set FOLDER_NAME=%%~nxI
 docker stop claude-%FOLDER_NAME% && docker rm claude-%FOLDER_NAME%
-REM Stop then remove. Your project files are untouched since they live
-REM on the host via the volume mount.
+REM Stop and remove container. Your files are untouched via volume mount.
 ```
 
 #### .dockerignore
@@ -386,15 +386,19 @@ Excludes batch files from the Docker build context. They're host-side launchers 
 │   %USERPROFILE%\.claude\       ← OAuth tokens live here        │
 │   %USERPROFILE%\.claude.json   ← Global config                 │
 │   C:\your\project\             ← Your code                     │
+│   E:\zetl\                     ← ZETL log files                 │
+│   R:\                          ← Regression output             │
 │                                                                │
-│           │  volume mount  │  volume mount  │                  │
-│           ▼               ▼               ▼                    │
+│           │  volume  │  volume  │  volume  │  volume  │      │
+│           ▼          ▼          ▼          ▼          ▼      │
 │                                                                │
 │  ┌───────────── CONTAINER (Linux) ──────────────────┐          │
 │  │                                                  │          │
-│  │   /home/node/.claude/       ← reads host tokens  │          │
-│  │   /home/node/.claude.json   ← reads config       │          │
-│  │   /workspace/               ← your code, live    │          │
+│  │   /home/node/.claude/       ← OAuth tokens       │          │
+│  │   /home/node/.claude.json   ← Global config      │          │
+│  │   /workspace/               ← Your code         │          │
+│  │   /data/zetl/               ← ZETL logs           │          │
+│  │   /data/regression-output/  ← Regression results  │          │
 │  │                                                  │          │
 │  │   node + python3 + git + claude-code             │          │
 │  │                                                  │          │
